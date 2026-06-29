@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bilal Bhatti  MERN Stack &amp; Shopify Developer</title>
+<meta name="description" content="Bilal Bhatti  MERN Stack Developer, Shopify Developer and WordPress Developer building modern websites for restaurants, academies, small businesses and local brands.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   1. TOKENS
+============================================================ */
+:root{
+  --bg:#F7F3EC;
+  --bg-soft:#EFE8DA;
+  --surface:255,255,255;
+  --surface-a:.62;
+  --surface-border: rgba(27,31,39,.08);
+  --text:#1B1F27;
+  --text-soft:#5B6472;
+  --text-faint:#8A9099;
+  --brand:#1E3A5F;
+  --accent:#D9722C;
+  --accent-rgb:217,114,44;
+  --accent-2:#2F7E6B;
+  --line: rgba(27,31,39,.12);
+  --shadow: 0 20px 60px -20px rgba(27,31,39,.18);
+  --radius-l: 26px;
+  --radius-m: 18px;
+  --radius-s: 12px;
+  --maxw: 1140px;
+  --nav-h: 76px;
+  color-scheme: light;
+}
+html[data-theme="dark"]{
+  --bg:#0D1016;
+  --bg-soft:#12161D;
+  --surface:255,255,255;
+  --surface-a:.045;
+  --surface-border: rgba(255,255,255,.09);
+  --text:#F3F1EA;
+  --text-soft:#A8AFBA;
+  --text-faint:#6E747F;
+  --brand:#9CC1E8;
+  --accent:#EFA055;
+  --accent-rgb:239,160,85;
+  --accent-2:#56C2A8;
+  --line: rgba(255,255,255,.1);
+  --shadow: 0 30px 70px -25px rgba(0,0,0,.65);
+  color-scheme: dark;
+}
+
+/* ============================================================
+   2. RESET & BASE
+============================================================ */
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  transition:background-color .4s ease, color .4s ease;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+ul{margin:0;padding:0;list-style:none;}
+h1,h2,h3,h4{margin:0;font-family:'Fraunces', Georgia, serif;font-weight:600;letter-spacing:-0.01em;color:var(--text);}
+p{margin:0;}
+button{font-family:inherit;background:none;border:none;cursor:pointer;color:inherit;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
+}
+
+/* ============================================================
+   3. SECTION SCAFFOLDING
+============================================================ */
+.section{position:relative;padding:128px 0;}
+.section-alt{background:var(--bg-soft);}
+.section-head{max-width:680px;margin-bottom:56px;}
+.tab-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono', monospace;font-size:12.5px;letter-spacing:.06em;
+  color:var(--accent);background:rgba(var(--accent-rgb),.1);
+  border:1px solid rgba(var(--accent-rgb),.25);
+  padding:5px 12px;border-radius:30px;margin-bottom:18px;
+}
+.tab-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);}
+.section-title{font-size:clamp(2rem, 1.4rem + 2.4vw, 3rem);line-height:1.12;}
+.section-sub{margin-top:16px;color:var(--text-soft);font-size:1.05rem;max-width:540px;}
+
+/* ============================================================
+   4. NAVIGATION
+============================================================ */
+.site-nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:18px 28px 0;
+}
+.nav-inner{
+  max-width:var(--maxw);margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 10px 10px 20px;border-radius:50px;
+  background:rgba(var(--surface), calc(var(--surface-a) + .25));
+  border:1px solid var(--surface-border);
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  transition:background .4s ease, box-shadow .4s ease, border-color .4s ease;
+}
+.site-nav.scrolled .nav-inner{box-shadow:var(--shadow);}
+.brand{display:flex;align-items:center;gap:9px;font-family:'Fraunces',serif;font-weight:600;}
+.brand-mark{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(150deg, var(--brand), var(--accent));
+  color:#fff;font-size:14px;letter-spacing:.02em;
+}
+.brand-dot{color:var(--accent);}
+html[data-theme="dark"] .brand-mark{color:#0D1016;}
+.brand-name{font-size:.98rem;color:var(--text);display:none;}
+@media(min-width:560px){.brand-name{display:inline;}}
+
+.nav-links{display:none;align-items:center;gap:4px;}
+.nav-links a{
+  position:relative;padding:9px 16px;border-radius:30px;
+  font-size:.92rem;font-weight:500;color:var(--text-soft);
+  transition:color .25s ease;
+}
+.nav-links a:hover{color:var(--text);}
+.nav-links a.active{color:var(--text);}
+.nav-links a .ind{
+  position:absolute;left:16px;right:16px;bottom:5px;height:2px;
+  background:var(--accent);border-radius:2px;
+  transform:scaleX(0);transform-origin:left;transition:transform .3s ease;
+}
+.nav-links a.active .ind, .nav-links a:hover .ind{transform:scaleX(1);}
+@media(min-width:900px){.nav-links{display:flex;}}
+
+.nav-actions{display:flex;align-items:center;gap:8px;}
+.icon-btn{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text);background:rgba(var(--surface),.5);
+  border:1px solid var(--surface-border);
+  transition:background .25s ease, transform .25s ease;
+}
+.icon-btn:hover{transform:translateY(-2px);background:rgba(var(--accent-rgb),.12);}
+.ic-moon{display:none;}
+html[data-theme="dark"] .ic-sun{display:none;}
+html[data-theme="dark"] .ic-moon{display:block;}
+.nav-cta{display:none;}
+@media(min-width:760px){.nav-cta{display:inline-flex;}}
+.menu-btn{display:flex;}
+@media(min-width:900px){.menu-btn{display:none;}}
+.ic-close{display:none;}
+body.menu-open .menu-btn .ic-menu{display:none;}
+body.menu-open .menu-btn .ic-close{display:block;}
+
+.mobile-menu{
+  max-height:0;overflow:hidden;
+  max-width:var(--maxw);margin:8px auto 0;
+  border-radius:24px;
+  background:rgba(var(--surface), .92);
+  border:1px solid var(--surface-border);
+  backdrop-filter:blur(18px);
+  transition:max-height .4s ease, opacity .3s ease;
+  opacity:0;
+}
+body.menu-open .mobile-menu{max-height:420px;opacity:1;}
+.mobile-menu nav{display:flex;flex-direction:column;padding:14px 8px;}
+.mobile-menu nav a{padding:14px 20px;border-radius:14px;font-size:1.05rem;color:var(--text);}
+.mobile-menu nav a:hover{background:rgba(var(--accent-rgb),.1);}
+.mobile-menu-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 22px;border-top:1px solid var(--line);
+}
+.mobile-menu-foot a{font-size:.9rem;color:var(--text-soft);}
+.social-row{display:flex;gap:10px;}
+.social-row a{
+  width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(var(--surface),.6);border:1px solid var(--surface-border);color:var(--text-soft);
+  transition:color .25s ease, border-color .25s ease, transform .25s ease;
+}
+.social-row a:hover{color:var(--accent);border-color:rgba(var(--accent-rgb),.4);transform:translateY(-2px);}
+@media(min-width:900px){.menu-toggle, #mobile-menu{display:none;}}
+
+/* ============================================================
+   5. BUTTONS
+============================================================ */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 24px;border-radius:50px;
+  font-size:.95rem;font-weight:600;
+  transition:transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+  white-space:nowrap;
+}
+.btn-primary{background:var(--brand);color:#fff;box-shadow:0 12px 30px -10px rgba(30,58,95,.5);}
+html[data-theme="dark"] .btn-primary{background:linear-gradient(135deg, var(--accent), #c97f3e);color:#181208;box-shadow:0 12px 30px -10px rgba(var(--accent-rgb),.55);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 36px -12px rgba(30,58,95,.55);}
+.btn-ghost{background:transparent;border:1.4px solid var(--line);color:var(--text);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);}
+.btn-sm{padding:9px 18px;font-size:.85rem;}
+
+/* ============================================================
+   6. HERO
+============================================================ */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding-top:calc(var(--nav-h) + 40px);
+  padding-bottom:60px;
+}
+.ambient{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;z-index:0;opacity:.5;}
+.ambient-a{width:480px;height:480px;top:-120px;right:-120px;background:radial-gradient(circle, rgba(var(--accent-rgb),.35), transparent 70%);}
+.ambient-b{width:420px;height:420px;bottom:-160px;left:-160px;background:radial-gradient(circle, rgba(47,126,107,.3), transparent 70%);}
+.ambient-c{width:500px;height:500px;top:10%;right:-180px;background:radial-gradient(circle, rgba(var(--accent-rgb),.28), transparent 70%);}
+@media(prefers-reduced-motion: no-preference){
+  .ambient{animation:drift 16s ease-in-out infinite;}
+  .ambient-b{animation-delay:-6s;}
+}
+@keyframes drift{0%,100%{transform:translate(0,0);}50%{transform:translate(-18px,22px);}}
+
+.hero-grid{
+  position:relative;z-index:1;
+  max-width:var(--maxw);margin:0 auto;padding:0 28px;
+  display:grid;grid-template-columns:1fr;gap:56px;align-items:center;
+}
+@media(min-width:980px){.hero-grid{grid-template-columns:1.05fr .95fr;gap:30px;}}
+
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:.85rem;letter-spacing:.08em;
+  color:var(--accent);text-transform:uppercase;margin-bottom:18px;
+}
+.hero-title{font-size:clamp(2.6rem, 1.6rem + 5vw, 4.6rem);line-height:1.02;margin-bottom:10px;}
+.hero-role{
+  font-family:'JetBrains Mono', monospace;font-size:clamp(.86rem,.7rem + .5vw,1.02rem);
+  color:var(--text-soft);margin-bottom:22px;line-height:1.7;
+}
+.hero-role .dot{color:var(--accent);margin:0 2px;}
+.hero-desc{max-width:540px;color:var(--text-soft);font-size:1.06rem;margin-bottom:34px;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:46px;}
+
+.stack-strip{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.stack-label{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--text-faint);}
+.stack-list{display:flex;flex-wrap:wrap;gap:8px;}
+.stack-list li{
+  font-size:.8rem;font-weight:600;padding:6px 13px;border-radius:30px;
+  background:rgba(var(--surface),.5);border:1px solid var(--surface-border);color:var(--text-soft);
+}
+
+/* browser mock */
+.hero-visual{position:relative;}
+.browser-mock{
+  background:rgba(var(--surface), calc(var(--surface-a) + .3));
+  border:1px solid var(--surface-border);
+  border-radius:var(--radius-l);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(20px);
+  overflow:hidden;
+}
+.browser-bar{
+  display:flex;align-items:center;gap:8px;padding:13px 16px;
+  border-bottom:1px solid var(--line);
+}
+.dot-r,.dot-y,.dot-g{width:9px;height:9px;border-radius:50%;}
+.dot-r{background:#ef6a5f;}.dot-y{background:#f4bf4f;}.dot-g{background:#61c454;}
+.addr{
+  margin-left:8px;flex:1;
+  font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--text-faint);
+  background:rgba(var(--surface),.5);border:1px solid var(--surface-border);
+  border-radius:30px;padding:5px 14px;overflow:hidden;white-space:nowrap;
+}
+.browser-stage{position:relative;height:280px;}
+.preview{
+  position:absolute;inset:0;padding:26px 26px 0;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .55s ease, transform .55s ease;
+  pointer-events:none;
+}
+.preview.prev-active{opacity:1;transform:translateY(0);pointer-events:auto;}
+.prev-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+.prev-tag{font-weight:700;font-family:'Fraunces',serif;font-size:.95rem;}
+.prev-nav{font-size:.7rem;color:var(--text-faint);letter-spacing:.03em;}
+.prev-hero h3{font-size:1.7rem;line-height:1.15;margin-bottom:18px;}
+.prev-btn{
+  display:inline-block;padding:9px 18px;border-radius:30px;font-size:.78rem;font-weight:700;color:#fff;
+}
+.prev-hero--rest{background:linear-gradient(135deg, rgba(217,114,44,.16), rgba(217,114,44,.04));border-radius:16px;padding:22px;}
+.prev-hero--rest .prev-btn{background:#D9722C;}
+.prev-hero--acad{background:linear-gradient(135deg, rgba(30,58,95,.18), rgba(30,58,95,.04));border-radius:16px;padding:22px;}
+.prev-hero--acad .prev-btn{background:#1E3A5F;}
+.prev-hero--shop{background:linear-gradient(135deg, rgba(47,126,107,.16), rgba(47,126,107,.04));border-radius:16px;padding:22px;}
+.prev-hero--shop .prev-btn--alt{background:#2F7E6B;}
+.prev-grid{display:flex;gap:10px;margin-bottom:16px;}
+.prev-grid span{width:56px;height:56px;border-radius:10px;background:rgba(47,126,107,.3);}
+.browser-code{
+  font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent-2);
+  background:var(--text);border-top:1px solid var(--line);padding:12px 18px;
+}
+html[data-theme="dark"] .browser-code{background:#070809;}
+.code-prompt{color:var(--accent);margin-right:6px;}
+.caret{display:inline-block;width:7px;background:var(--accent-2);animation:blink 1s steps(1) infinite;}
+@keyframes blink{50%{opacity:0;}}
+
+.dots-indicator{display:flex;gap:8px;justify-content:center;margin-top:18px;}
+.dots-indicator button{
+  width:8px;height:8px;border-radius:50%;background:var(--line);transition:background .25s ease, width .25s ease;
+}
+.dots-indicator button.active{background:var(--accent);width:22px;border-radius:30px;}
+
+.scroll-cue{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  width:26px;height:42px;border:1.6px solid var(--line);border-radius:30px;z-index:1;
+}
+.scroll-cue span{
+  display:block;width:4px;height:8px;background:var(--accent);border-radius:3px;
+  margin:6px auto 0;animation:scrollcue 1.8s ease-in-out infinite;
+}
+@keyframes scrollcue{0%{transform:translateY(0);opacity:1;}70%{transform:translateY(14px);opacity:0;}100%{opacity:0;}}
+@media(max-width:640px){.scroll-cue{display:none;}}
+
+/* ============================================================
+   7. REVEAL ANIMATION
+============================================================ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);}
+.reveal[data-dir="left"]{transform:translateX(-30px);}
+.reveal[data-dir="right"]{transform:translateX(30px);}
+.reveal.visible{opacity:1;transform:none;}
+
+/* ============================================================
+   8. ABOUT
+============================================================ */
+.about-grid{display:grid;grid-template-columns:1fr;gap:48px;}
+@media(min-width:940px){.about-grid{grid-template-columns:1.2fr .8fr;gap:64px;}}
+.about-text .lead{font-size:1.28rem;font-family:'Fraunces',serif;font-weight:500;line-height:1.5;margin-bottom:18px;color:var(--text);}
+.about-text p{color:var(--text-soft);font-size:1.02rem;margin-bottom:0;}
+.process{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px;}
+@media(max-width:700px){.process{grid-template-columns:1fr;}}
+.process-step{padding-top:18px;border-top:2px solid var(--line);}
+.process-no{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:.85rem;}
+.process-step h4{margin:10px 0 8px;font-size:1.08rem;}
+.process-step p{color:var(--text-soft);font-size:.92rem;margin:0;}
+
+.about-side{
+  background:rgba(var(--surface), calc(var(--surface-a) + .2));
+  border:1px solid var(--surface-border);border-radius:var(--radius-l);
+  padding:34px 30px;backdrop-filter:blur(16px);
+}
+.side-title{font-size:1.15rem;margin-bottom:22px;}
+.help-list{display:flex;flex-direction:column;gap:22px;}
+.help-list li{display:flex;gap:16px;align-items:flex-start;}
+.help-list svg{flex:none;color:var(--accent);margin-top:3px;}
+.help-list strong{display:block;font-size:.98rem;margin-bottom:4px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;}
+.help-list span{color:var(--text-soft);font-size:.9rem;}
+
+/* ============================================================
+   9. CARDS / GRIDS (services, skills, projects, contact)
+============================================================ */
+.grid-cards{display:grid;grid-template-columns:1fr;gap:22px;}
+@media(min-width:680px){.grid-cards{grid-template-columns:1fr 1fr;}}
+@media(min-width:1020px){.services-grid{grid-template-columns:1fr 1fr 1fr;}}
+@media(min-width:1020px){.projects-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:680px){.contact-grid{grid-template-columns:repeat(3,1fr);}}
+.contact-grid{display:grid;grid-template-columns:1fr;gap:22px;}
+
+.glass-card{
+  position:relative;padding:30px 26px;border-radius:var(--radius-m);
+  background:rgba(var(--surface), calc(var(--surface-a) + .25));
+  border:1px solid var(--surface-border);
+  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  transform-style:preserve-3d;will-change:transform;
+}
+.glass-card:hover{box-shadow:var(--shadow);border-color:rgba(var(--accent-rgb),.35);}
+.card-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:46px;height:46px;border-radius:14px;margin-bottom:18px;
+  background:rgba(var(--accent-rgb),.13);color:var(--accent);
+}
+.glass-card h3{font-size:1.1rem;margin-bottom:10px;}
+.glass-card p{color:var(--text-soft);font-size:.93rem;}
+
+/* skills */
+.skills-grid{display:grid;grid-template-columns:1fr;gap:20px;}
+@media(min-width:760px){.skills-grid{grid-template-columns:1fr 1fr;}}
+.skill-block{
+  padding:26px;border-radius:var(--radius-m);
+  background:rgba(var(--surface), calc(var(--surface-a) + .2));
+  border:1px solid var(--surface-border);
+}
+.skill-block-head{display:flex;align-items:center;gap:12px;margin-bottom:16px;color:var(--accent);}
+.skill-block-head h3{font-size:1.02rem;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;}
+.tag-row{display:flex;flex-wrap:wrap;gap:9px;}
+.tag-row span{
+  font-size:.83rem;font-weight:600;color:var(--text-soft);
+  padding:7px 14px;border-radius:30px;border:1px solid var(--line);
+  transition:color .25s ease, border-color .25s ease;
+}
+.tag-row span:hover{color:var(--accent);border-color:rgba(var(--accent-rgb),.4);}
+.skills-note{margin-top:34px;color:var(--text-faint);font-size:.92rem;font-style:italic;}
+
+/* projects */
+.proj-card{
+  border-radius:var(--radius-m);overflow:hidden;
+  background:rgba(var(--surface), calc(var(--surface-a) + .25));
+  border:1px solid var(--surface-border);
+  transition:transform .35s ease, box-shadow .35s ease;
+  will-change:transform;
+}
+.proj-card:hover{box-shadow:var(--shadow);}
+.proj-media{position:relative;height:170px;display:flex;align-items:flex-start;justify-content:flex-end;padding:16px;}
+.proj-media--rest{background:linear-gradient(135deg,#D9722C 0%,#A8501C 100%);}
+.proj-media--acad{background:linear-gradient(135deg,#1E3A5F 0%,#0F2038 100%);}
+.proj-media--shop{background:linear-gradient(135deg,#2F7E6B 0%,#1B4D42 100%);}
+.proj-media--biz{background:linear-gradient(135deg,#5B6472 0%,#2B3038 100%);}
+.proj-media--ecom{background:linear-gradient(135deg,#B5793F 0%,#6E4321 100%);}
+.proj-badge{
+  font-size:.7rem;font-weight:700;letter-spacing:.04em;color:#fff;
+  background:rgba(0,0,0,.28);padding:6px 12px;border-radius:30px;backdrop-filter:blur(6px);
+}
+.proj-body{padding:24px 24px 28px;}
+.proj-cat{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--accent);letter-spacing:.03em;}
+.proj-body h3{font-size:1.2rem;margin:8px 0 10px;}
+.proj-body p{color:var(--text-soft);font-size:.92rem;margin-bottom:16px;}
+.proj-meta{display:flex;gap:10px;flex-wrap:wrap;}
+.proj-meta span{font-size:.76rem;color:var(--text-faint);border:1px solid var(--line);padding:5px 11px;border-radius:30px;}
+.proj-disclaimer{margin-top:30px;color:var(--text-faint);font-size:.85rem;text-align:center;}
+
+/* contact */
+.contact-section{padding-bottom:150px;}
+.contact-card{text-align:left;}
+.contact-value{font-family:'JetBrains Mono',monospace;font-size:1rem;margin-bottom:18px;color:var(--text);word-break:break-word;}
+.contact-actions{display:flex;align-items:center;gap:10px;}
+
+/* ============================================================
+   10. FOOTER
+============================================================ */
+.site-footer{background:var(--bg-soft);border-top:1px solid var(--line);padding:64px 0 0;}
+.footer-grid{display:grid;grid-template-columns:1fr;gap:36px;padding-bottom:46px;}
+@media(min-width:760px){.footer-grid{grid-template-columns:1.3fr .8fr .8fr;}}
+.footer-brand p{margin-top:14px;color:var(--text-soft);font-size:.92rem;max-width:340px;}
+.footer-nav{display:flex;flex-direction:column;gap:12px;}
+.footer-nav a{color:var(--text-soft);font-size:.93rem;}
+.footer-nav a:hover{color:var(--accent);}
+.footer-social{display:flex;flex-direction:column;gap:14px;align-items:flex-start;}
+@media(min-width:760px){.footer-social{align-items:flex-end;}}
+.footer-label{font-size:.8rem;color:var(--text-faint);}
+.footer-bottom{
+  border-top:1px solid var(--line);padding:22px 28px;
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;
+  max-width:var(--maxw);margin:0 auto;
+  font-size:.8rem;color:var(--text-faint);
+}
+
+/* ============================================================
+   11. TOAST
+============================================================ */
+.toast{
+  position:fixed;bottom:28px;left:50%;transform:translate(-50%,16px);
+  background:var(--text);color:var(--bg);
+  padding:11px 20px;border-radius:30px;font-size:.85rem;font-weight:600;
+  opacity:0;pointer-events:none;transition:opacity .3s ease, transform .3s ease;
+  z-index:200;
+}
+.toast.show{opacity:1;transform:translate(-50%,0);}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     ICON SPRITE (sr-only defs, referenced via <use>)
+============================================================ -->
+<svg style="display:none" aria-hidden="true">
+  <defs>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.7A8.5 8.5 0 1 1 9.3 3.5a7 7 0 0 0 11.2 11.2Z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 6.5h17M3.5 12h17M3.5 17.5h17"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.2"/><path d="M4 7l8 6 8-6"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5h3l1.4 4.3-2 1.7a13 13 0 0 0 5.6 5.6l1.7-2 4.3 1.4v3a1.7 1.7 0 0 1-1.8 1.7C11.2 19 5 12.8 4.8 5.3A1.7 1.7 0 0 1 6.5 3.5Z"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7.2 16.8 4 20l3.3-1.2A8.6 8.6 0 1 0 4.5 12 8.6 8.6 0 0 0 7.2 16.8Z"/><path d="M9.2 9.6c.2-.6.9-.6 1.2-.1l.6 1c.2.3.1.7-.1.9l-.4.4c.4.9 1.2 1.7 2.1 2.1l.4-.4c.2-.2.6-.3.9-.1l1 .6c.5.3.5 1 0 1.2-1.6.9-3.6.5-5.1-1-1.5-1.5-1.9-3.5-1-5.1Z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5v6M8 7.8v.1M12.2 16.5v-3.7c0-1.3.8-2 1.9-2 1 0 1.7.7 1.7 2v3.7"/></symbol><a href="https://www.linkedin.com/in/bilal-nadeem-bhatti-9b8401309/"</a>
+    <symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-facebook" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M14 8.5h-1.4a1.6 1.6 0 0 0-1.6 1.6V11h3l-.4 2.2h-2.6V20"/></symbol>
+    <symbol id="i-store" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.4 4h13.2L20 9.5"/><path d="M4.5 9.5h15V20h-15Z"/><path d="M9.5 20v-5h5v5"/></symbol>
+    <symbol id="i-utensils" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.5v6.7M5 3.5v6.7M9 3.5v6.7M7 10.2V20.5M15.5 3.5c-1.4 1.4-2 3-2 5.2 0 1.7 1 2.7 2 3.1v8.7"/></symbol>
+    <symbol id="i-grad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8 12 4l9.5 4-9.5 4-9.5-4Z"/><path d="M6.5 10.4v4.4c0 1.6 2.5 2.7 5.5 2.7s5.5-1.1 5.5-2.7v-4.4M21.5 8v6"/></symbol>
+    <symbol id="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 4.5h2l2 11.5h10l2-8h-13"/><circle cx="9" cy="19.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="17" cy="19.5" r="1.2" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l1 12.5H5Z"/><path d="M9 8a3 3 0 0 1 6 0"/></symbol>
+    <symbol id="i-wp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5 9.5l3.3 9 2-6-1.3-3M19 9.5l-3.3 9-2-6 1.3-3M9 7.2h1.6M14 9.5l-2.2 6.4"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12a7.5 7.5 0 0 1 12.6-5.4L19 8.2M19.5 12a7.5 7.5 0 0 1-12.6 5.4L5 15.8"/><path d="M16 5.5h3.4V9M8 18.5H4.6V15"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7 4 12l5 5M15 7l5 5-5 5"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="6" rx="1.4"/><rect x="4" y="14" width="16" height="6" rx="1.4"/><circle cx="7.5" cy="7" r=".6" fill="currentColor" stroke="none"/><circle cx="7.5" cy="17" r=".6" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-database" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7.5" ry="3"/><path d="M4.5 6v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V6M4.5 12v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-6"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 3.5 8 12 12.5 20.5 8Z"/><path d="M3.5 12l8.5 4.5L20.5 12M3.5 16l8.5 4.5L20.5 16"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.4 7-11.5A7 7 0 0 0 5 9.5C5 14.6 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M5.5 15V6.5a2 2 0 0 1 2-2H16"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+<header class="site-nav" id="site-nav">
+  <div class="nav-inner">
+    <a href="#home" class="brand" data-nav>
+      <span class="brand-mark">BB<span class="brand-dot">.</span></span>
+      <span class="brand-name">Bilal&nbsp;Bhatti</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#home" data-nav class="active">Home<span class="ind"></span></a>
+      <a href="#about" data-nav>About<span class="ind"></span></a>
+      <a href="#services" data-nav>Services<span class="ind"></span></a>
+      <a href="#skills" data-nav>Skills<span class="ind"></span></a>
+      <a href="#projects" data-nav>Projects<span class="ind"></span></a>
+      <a href="#contact" data-nav>Contact<span class="ind"></span></a>
+    </nav>
+
+    <div class="nav-actions">
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle dark and light mode" aria-pressed="false">
+        <svg class="ic ic-sun" width="19" height="19"><use href="#i-sun"/></svg>
+        <svg class="ic ic-moon" width="19" height="19"><use href="#i-moon"/></svg>
+      </button>
+      <a href="#contact" class="btn btn-primary btn-sm nav-cta"  href="mailto:bilalnbhatti26@gmail.com">Let's talk</a><a></a>
+      <button id="menu-toggle" class="icon-btn menu-btn" aria-label="Open menu" aria-expanded="false">
+        <svg class="ic ic-menu" width="22" height="22"><use href="#i-menu"/></svg>
+        <svg class="ic ic-close" width="22" height="22"><use href="#i-close"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <nav aria-label="Mobile">
+      <a href="#home" data-nav data-mobile>Home</a>
+      <a href="#about" data-nav data-mobile>About</a>
+      <a href="#services" data-nav data-mobile>Services</a>
+      <a href="#skills" data-nav data-mobile>Skills</a>
+      <a href="#projects" data-nav data-mobile>Projects</a>
+      <a href="#contact" data-nav data-mobile>Contact</a>
+    </nav>
+    <div class="mobile-menu-foot">
+      <a href="mailto:bilalnbhatti26@gmail.com">bilalnbhatti26@gmail.com</a>
+      <div class="social-row">
+        <a href="#" aria-label="LinkedIn"><svg width="18" height="18"><use href="#i-linkedin"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg width="18" height="18"><use href="#i-instagram"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg width="18" height="18"><use href="#i-facebook"/></svg></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================================================
+     HOME / HERO
+============================================================ -->
+<section id="home" class="section hero">
+  <div class="ambient ambient-a" aria-hidden="true"></div>
+  <div class="ambient ambient-b" aria-hidden="true"></div>
+
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow reveal" style="--i:0">Freelance Web Developer</p>
+      <h1 class="hero-title reveal" style="--i:1">
+        Bilal Bhatti
+      </h1>
+      <p class="hero-role reveal" style="--i:2">
+        MERN Stack Developer <span class="dot">·</span> Shopify Developer <span class="dot">·</span> WordPress Developer <span class="dot">·</span> Web Developer
+      </p>
+      <p class="hero-desc reveal" style="--i:3">
+        I design and build clean, fast, reliable websites for restaurants, academies, and growing local businesses  from custom MERN web apps to Shopify and WordPress stores that are easy to manage and built to convert visitors into customers.
+      </p>
+      <div class="hero-actions reveal" style="--i:4">
+        <a href="#projects" class="btn btn-primary">
+          View Projects <svg width="16" height="16"><use href="#i-arrow"/></svg>
+        </a>
+        <a href="#contact" class="btn btn-ghost">Start a Project</a>
+      </div>
+
+      <div class="stack-strip reveal" style="--i:5">
+        <span class="stack-label">Built with</span>
+        <ul class="stack-list">
+          <li>React.js</li><li>Node.js</li><li>Express.js</li><li>MongoDB</li><li>Shopify</li><li>WordPress</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal" data-dir="right" style="--i:2">
+      <div class="browser-mock">
+        <div class="browser-bar">
+          <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+          <div class="addr"><span id="addr-text">bilalbhatti.dev/restaurant</span></div>
+        </div>
+        <div class="browser-stage" id="browser-stage">
+          <article class="preview prev-active" data-preview="0">
+            <div class="prev-top">
+              <span class="prev-tag">The&nbsp;Spice&nbsp;Quarter</span>
+              <span class="prev-nav">Menu&nbsp;&nbsp;Book&nbsp;&nbsp;Visit</span>
+            </div>
+            <div class="prev-hero prev-hero--rest">
+              <h3>Slow food,<br>warm tables.</h3>
+              <span class="prev-btn">Reserve a Table</span>
+            </div>
+          </article>
+          <article class="preview" data-preview="1">
+            <div class="prev-top">
+              <span class="prev-tag">Bright&nbsp;Minds&nbsp;Academy</span>
+              <span class="prev-nav">Courses&nbsp;&nbsp;Admissions</span>
+            </div>
+            <div class="prev-hero prev-hero--acad">
+              <h3>Learning,<br>built right.</h3>
+              <span class="prev-btn">Apply Now</span>
+            </div>
+          </article>
+          <article class="preview" data-preview="2">
+            <div class="prev-top">
+              <span class="prev-tag">Urban&nbsp;Thread&nbsp;Co.</span>
+              <span class="prev-nav">Shop&nbsp;&nbsp;Collections</span>
+            </div>
+            <div class="prev-hero prev-hero--shop">
+              <div class="prev-grid">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="prev-btn prev-btn--alt">Shop Collection</span>
+            </div>
+          </article>
+        </div>
+        <div class="browser-code">
+          <span class="code-prompt">$</span> <span id="code-typed"></span><span class="caret">&nbsp;</span>
+        </div>
+      </div>
+      <div class="dots-indicator" id="dots-indicator">
+        <button data-go="0" class="active" aria-label="Show restaurant preview"></button>
+        <button data-go="1" aria-label="Show academy preview"></button>
+        <button data-go="2" aria-label="Show shop preview"></button>
+      </div>
+    </div>
+  </div>
+
+  <a href="#about" class="scroll-cue" aria-label="Scroll to About">
+    <span></span>
+  </a>
+</section>
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="tab-label reveal">About.jsx</span>
+      <h2 class="section-title reveal">About&nbsp;Me</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text reveal" data-dir="left">
+        <p class="lead">
+          I am a passionate Shopify Store Developer and Web Developer who enjoys building modern, responsive, and user-friendly websites and web applications.
+        </p>
+        <p>
+          I specialize in Shopify and WordPress development, helping businesses establish a strong online presence through clean design and functional solutions. I am continuously learning and improving my skills to deliver high-quality digital experiences  whether that means a custom MERN web application or a fully managed e-commerce store.
+        </p>
+
+        <div class="process">
+          <div class="process-step reveal" style="--i:0">
+            <span class="process-no">01</span>
+            <h4>Discover</h4>
+            <p>Understanding your business, your customers, and what the site actually needs to do.</p>
+          </div>
+          <div class="process-step reveal" style="--i:1">
+            <span class="process-no">02</span>
+            <h4>Build</h4>
+            <p>Designing and developing a clean, responsive site using the right stack for the job.</p>
+          </div>
+          <div class="process-step reveal" style="--i:2">
+            <span class="process-no">03</span>
+            <h4>Launch &amp; Support</h4>
+            <p>Testing, going live, and staying available for fixes, updates, and small improvements.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-side reveal" data-dir="right">
+        <h3 class="side-title">Who I help</h3>
+        <ul class="help-list">
+          <li>
+            <svg width="20" height="20"><use href="#i-utensils"/></svg>
+            <div><strong>Restaurants</strong><span>Menus, reservations, and locations that look great on every screen.</span></div>
+          </li>
+          <li>
+            <svg width="20" height="20"><use href="#i-grad"/></svg>
+            <div><strong>Academies &amp; Educational Institutes</strong><span>Course info and admissions made simple for parents and students.</span></div>
+          </li>
+          <li>
+            <svg width="20" height="20"><use href="#i-store"/></svg>
+            <div><strong>Small Businesses</strong><span>A professional online presence that builds trust fast.</span></div>
+          </li>
+          <li>
+            <svg width="20" height="20"><use href="#i-bag"/></svg>
+            <div><strong>Local Brands &amp; Startups</strong><span>Websites and stores that grow alongside the business.</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICES
+============================================================ -->
+<section id="services" class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="tab-label reveal">Services.jsx</span>
+      <h2 class="section-title reveal">What&nbsp;I&nbsp;Can&nbsp;Build&nbsp;For&nbsp;You</h2>
+      <p class="section-sub reveal">Practical, focused services for businesses that need a website that actually works for them.</p>
+    </div>
+
+    <div class="grid-cards services-grid">
+      <article class="glass-card reveal" style="--i:0">
+        <span class="card-icon"><svg width="22" height="22"><use href="#i-store"/></svg></span>
+        <h3>Custom Business Websites</h3>
+        <p>A clean, professional website built around your business  fast, mobile-friendly, and easy to update.</p>
+      </article>
+      <article class="glass-card reveal" style="--i:1">
+        <span class="card-icon"><svg width="22" height="22"><use href="#i-utensils"/></svg></span>
+        <h3>Restaurant Websites</h3>
+        <p>Menus, hours, location, and reservations presented clearly, so hungry visitors become customers.</p>
+      </article>
+      <article class="glass-card reveal" style="--i:2">
+        <span class="card-icon"><svg width="22" height="22"><use href="#i-grad"/></svg></span>
+        <h3>Academy &amp; Educational Websites</h3>
+        <p>Course listings, admissions info, and faculty pages organized for parents and students to find quickly.</p>
+      </article>
+      <article class="glass-card reveal" style="--i:3">
+        <span class="card-icon"><svg width="22" height="22"><use href="#i-cart"/></svg></span>
+        <h3>E-commerce Stores</h3>
+        <p>Full online stores with product catalogs, secure checkout, and a smooth path from browsing to buying.</p>
+      </article>
+      <article class="glass-card reveal" style="--i:4">
+        <span class="card-icon"><svg width="22" height="22"><use href="#i-bag"/></svg></span>
+        <h3>Shopify Store Development</h3>
+        <p>Custom Shopify themes and store setup, tailored to your products and brand  not a generic template.</p>
+      </article>
+      <article class="glass-card reveal" style="--i:5">
+        <span class="card-icon"><svg width="22" height="22"><use href="#i-wp"/></svg></span>
+        <h3>WordPress Development</h3>
+        <p>Custom WordPress sites and themes that stay simple for you to manage long after launch.</p>
+      </article>
+      <article class="glass-card reveal" style="--i:6">
+        <span class="card-icon"><svg width="22" height="22"><use href="#i-refresh"/></svg></span>
+        <h3>Website Maintenance &amp; Redesign</h3>
+        <p>Updates, fixes, speed improvements, or a full redesign for a site that needs a refresh.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SKILLS
+============================================================ -->
+<section id="skills" class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="tab-label reveal">Skills.jsx</span>
+      <h2 class="section-title reveal">Skills&nbsp;&amp;&nbsp;Tools</h2>
+      <p class="section-sub reveal">The stack I actually build with, every day.</p>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-block reveal" style="--i:0">
+        <div class="skill-block-head"><svg width="20" height="20"><use href="#i-code"/></svg><h3>Frontend</h3></div>
+        <div class="tag-row">
+          <span>React.js</span><span>JavaScript (ES6+)</span><span>HTML5</span><span>CSS3</span><span>Responsive Design</span>
+        </div>
+      </div>
+      <div class="skill-block reveal" style="--i:1">
+        <div class="skill-block-head"><svg width="20" height="20"><use href="#i-server"/></svg><h3>Backend</h3></div>
+        <div class="tag-row">
+          <span>Node.js</span><span>Express.js</span><span>REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-block reveal" style="--i:2">
+        <div class="skill-block-head"><svg width="20" height="20"><use href="#i-database"/></svg><h3>Database</h3></div>
+        <div class="tag-row">
+          <span>MongoDB</span>
+        </div>
+      </div>
+      <div class="skill-block reveal" style="--i:3">
+        <div class="skill-block-head"><svg width="20" height="20"><use href="#i-layers"/></svg><h3>CMS &amp; E-commerce</h3></div>
+        <div class="tag-row">
+          <span>Shopify (Liquid &amp; Themes)</span><span>WordPress</span><span>WooCommerce</span><span>Elementor</span>
+        </div>
+      </div>
+      <div class="skill-block reveal" style="--i:4">
+        <div class="skill-block-head"><svg width="20" height="20"><use href="#i-refresh"/></svg><h3>Tools &amp; Workflow</h3></div>
+        <div class="tag-row">
+          <span>Git &amp; GitHub</span><span>VS Code</span><span>Postman</span><span>npm</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="skills-note reveal">
+      Always learning  currently exploring the basics of SEO and UI/UX design to bring even more value to client projects.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJECTS
+============================================================ -->
+<section id="projects" class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="tab-label reveal">Projects.jsx</span>
+      <h2 class="section-title reveal">Selected&nbsp;Work</h2>
+      <p class="section-sub reveal">Concept &amp; demo projects built to show how I approach design and development across different kinds of businesses.</p>
+    </div>
+
+    <div class="grid-cards projects-grid">
+
+      <article class="proj-card reveal" style="--i:0">
+        <div class="proj-media proj-media--rest">
+          <span class="proj-badge">Concept Project</span>
+        </div>
+        <div class="proj-body">
+          <span class="proj-cat">Restaurant Website</span>
+          <h3>The Spice Quarter</h3>
+          <p>A warm, appetite-driven restaurant site with an online menu, table reservation form, and location map.</p>
+          <div class="proj-meta">
+            <span>HTML · CSS · JS</span><span>5-page responsive build</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj-card reveal" style="--i:1">
+        <div class="proj-media proj-media--acad">
+          <span class="proj-badge">Concept Project</span>
+        </div>
+        <div class="proj-body">
+          <span class="proj-cat">Academy Management Website</span>
+          <h3>Bright Minds Academy</h3>
+          <p>Admissions pages, a course catalog, and a faculty directory designed for parents researching the school.</p>
+          <div class="proj-meta">
+            <span>WordPress</span><span>Inquiry &amp; admission forms</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj-card reveal" style="--i:2">
+        <div class="proj-media proj-media--shop">
+          <span class="proj-badge">Concept Project</span>
+        </div>
+        <div class="proj-body">
+          <span class="proj-cat">Shopify Store</span>
+          <h3>Urban Thread Co.</h3>
+          <p>A custom Shopify theme for an apparel brand, with collections, filtering, and a streamlined checkout.</p>
+          <div class="proj-meta">
+            <span>Shopify · Liquid</span><span>Custom theme build</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj-card reveal" style="--i:3">
+        <div class="proj-media proj-media--biz">
+          <span class="proj-badge">Concept Project</span>
+        </div>
+        <div class="proj-body">
+          <span class="proj-cat">Business Portfolio Website</span>
+          <h3>Bramwell &amp; Co.</h3>
+          <p>A polished portfolio site for a consulting firm, built on the MERN stack with a custom contact pipeline.</p>
+          <div class="proj-meta">
+            <span>MERN Stack</span><span>Custom contact flow</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj-card reveal" style="--i:4">
+        <div class="proj-media proj-media--ecom">
+          <span class="proj-badge">Concept Project</span>
+        </div>
+        <div class="proj-body">
+          <span class="proj-cat">E-commerce Store</span>
+          <h3>Lumen Skincare</h3>
+          <p>A WooCommerce store for a skincare line, focused on clean product presentation and a fast checkout.</p>
+          <div class="proj-meta">
+            <span>WordPress · WooCommerce</span><span>Product catalog &amp; checkout</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+  
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+============================================================ -->
+<section id="contact" class="section contact-section">
+  <div class="ambient ambient-c" aria-hidden="true"></div>
+  <div class="container">
+    <div class="section-head">
+      <span class="tab-label reveal">Contact.jsx</span>
+      <h2 class="section-title reveal">Let's&nbsp;Build&nbsp;Something&nbsp;Great</h2>
+      <p class="section-sub reveal">Have a project in mind? Reach out through whichever channel works best for you.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-card glass-card reveal" style="--i:0">
+        <span class="card-icon"><svg width="22" height="22"><use href="#i-mail"/></svg></span>
+        <h3>Email</h3>
+        <p class="contact-value" id="email-value">bilalnbhatti26@gmail.com</p>
+        <div class="contact-actions">
+          <a href="mailto:bilalnbhatti26@gmail.com" class="btn btn-ghost btn-sm">Send Email</a>
+          <button class="icon-btn copy-btn" data-copy="bilalnbhatti26@gmail.com" aria-label="Copy email">
+            <svg width="16" height="16"><use href="#i-copy"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="contact-card glass-card reveal" style="--i:1">
+        <span class="card-icon"><svg width="22" height="22"><use href="#i-phone"/></svg></span>
+        <h3>Phone</h3>
+        <p class="contact-value">+92 324 4761931</p>
+        <div class="contact-actions">
+          <a href="tel:+923001234567" class="btn btn-ghost btn-sm">Call Now</a>
+          <button class="icon-btn copy-btn" data-copy="+923001234567" aria-label="Copy phone number">
+            <svg width="16" height="16"><use href="#i-copy"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="contact-card glass-card reveal" style="--i:2">
+        <span class="card-icon"><svg width="22" height="22"><use href="#i-whatsapp"/></svg></span>
+        <h3>WhatsApp</h3>
+        <p class="contact-value">+92 324 4761931</p>
+        <div class="contact-actions">
+          <a href="https://wa.me/923001234567" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Chat on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <span class="brand-mark">BB<span class="brand-dot">.</span></span>
+      <p>Bilal Bhatti  MERN Stack Developer, Shopify Developer &amp; WordPress Developer, building websites for businesses that want to look as good online as they do in person.</p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="footer-social">
+      <span class="footer-label">Find me on</span>
+      <div class="social-row">
+        <a href="#" aria-label="LinkedIn"><svg width="18" height="18"><use href="#i-linkedin"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg width="18" height="18"><use href="#i-instagram"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg width="18" height="18"><use href="#i-facebook"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Bilal Bhatti. All rights reserved.</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* THEME ------------------------------------------------------ */
+(function(){
+  var root = document.documentElement;
+  var btn = document.getElementById('theme-toggle');
+  var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  var initial = prefersLight ? 'light' : 'dark';
+  root.setAttribute('data-theme', initial);
+  btn.setAttribute('aria-pressed', initial === 'light');
+
+  btn.addEventListener('click', function(){
+    var current = root.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    btn.setAttribute('aria-pressed', next === 'light');
+  });
+})();
+
+/* MOBILE MENU -------------------------------------------------*/
+(function(){
+  var menuBtn = document.getElementById('menu-toggle');
+  var menu = document.getElementById('mobile-menu');
+  function close(){
+    document.body.classList.remove('menu-open');
+    menuBtn.setAttribute('aria-expanded','false');
+  }
+  menuBtn.addEventListener('click', function(){
+    var open = document.body.classList.toggle('menu-open');
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  menu.querySelectorAll('[data-mobile]').forEach(function(a){
+    a.addEventListener('click', close);
+  });
+})();
+
+/* SMOOTH SCROLL + ACTIVE NAV ---------------------------------- */
+(function(){
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main .section'));
+
+  navLinks.forEach(function(link){
+    link.addEventListener('click', function(e){
+      var href = link.getAttribute('href');
+      if(href && href.charAt(0) === '#'){
+        var target = document.querySelector(href);
+        if(target){
+          e.preventDefault();
+          var top = target.getBoundingClientRect().top + window.pageYOffset - 76;
+          window.scrollTo({top: top, behavior: 'smooth'});
+        }
+      }
+    });
+  });
+
+  function setActive(id){
+    navLinks.forEach(function(l){
+      var match = l.getAttribute('href') === '#' + id;
+      l.classList.toggle('active', match && l.hasAttribute('data-nav') && !l.hasAttribute('data-mobile') ? true : (match));
+    });
+  }
+
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          setActive(entry.target.id);
+        }
+      });
+    }, {rootMargin: '-40% 0px -55% 0px', threshold: 0});
+    sections.forEach(function(s){ obs.observe(s); });
+  }
+})();
+
+/* SCROLL REVEAL ------------------------------------------------*/
+(function(){
+  var items = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){
+    items.forEach(function(el){ el.classList.add('visible'); });
+    return;
+  }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        var i = parseFloat(entry.target.style.getPropertyValue('--i')) || 0;
+        entry.target.style.transitionDelay = (i * 70) + 'ms';
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.15});
+  items.forEach(function(el){ obs.observe(el); });
+})();
+
+/* NAV BACKGROUND ON SCROLL --------------------------------------*/
+(function(){
+  var nav = document.getElementById('site-nav');
+  function onScroll(){
+    nav.classList.toggle('scrolled', window.scrollY > 12);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+
+/* HERO BROWSER MOCK: slide rotation + typewriter -----------------*/
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.preview'));
+  var dots = Array.prototype.slice.call(document.querySelectorAll('#dots-indicator button'));
+  var addrText = document.getElementById('addr-text');
+  var codeTyped = document.getElementById('code-typed');
+  var addrs = ['bilalbhatti.dev/restaurant', 'bilalbhatti.dev/academy', 'bilalbhatti.dev/shopify-store'];
+  var lines = ['<RestaurantWebsite />', '<AcademyPortal />', '<ShopifyStore />'];
+  var current = 0;
+  var typingTimer, rotateTimer;
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function showSlide(idx){
+    slides.forEach(function(s, i){ s.classList.toggle('prev-active', i === idx); });
+    dots.forEach(function(d, i){ d.classList.toggle('active', i === idx); });
+    addrText.textContent = addrs[idx];
+    typeLine(lines[idx]);
+    current = idx;
+  }
+
+  function typeLine(text){
+    clearTimeout(typingTimer);
+    codeTyped.textContent = '';
+    if(reduceMotion){ codeTyped.textContent = text; return; }
+    var i = 0;
+    function step(){
+      codeTyped.textContent = text.slice(0, i);
+      i++;
+      if(i <= text.length){
+        typingTimer = setTimeout(step, 38);
+      }
+    }
+    step();
+  }
+
+  function next(){
+    showSlide((current + 1) % slides.length);
+  }
+
+  dots.forEach(function(d){
+    d.addEventListener('click', function(){
+      showSlide(parseInt(d.getAttribute('data-go'), 10));
+      restartRotation();
+    });
+  });
+
+  function restartRotation(){
+    clearInterval(rotateTimer);
+    if(!reduceMotion){
+      rotateTimer = setInterval(next, 4200);
+    }
+  }
+
+  showSlide(0);
+  restartRotation();
+})();
+
+/* PROJECT CARD TILT ------------------------------------------- */
+(function(){
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion) return;
+  var cards = document.querySelectorAll('.proj-card, .glass-card');
+  cards.forEach(function(card){
+    card.addEventListener('mousemove', function(e){
+      var r = card.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = 'rotateX(' + (y * -4) + 'deg) rotateY(' + (x * 5) + 'deg) translateY(-4px)';
+    });
+    card.addEventListener('mouseleave', function(){
+      card.style.transform = '';
+    });
+  });
+})();
+
+/* COPY TO CLIPBOARD --------------------------------------------*/
+(function(){
+  var toast = document.getElementById('toast');
+  var timer;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(timer);
+    timer = setTimeout(function(){ toast.classList.remove('show'); }, 1800);
+  }
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var val = btn.getAttribute('data-copy');
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(val).then(function(){
+          showToast('Copied: ' + val);
+        }).catch(function(){
+          showToast(val);
+        });
+      } else {
+        showToast(val);
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
